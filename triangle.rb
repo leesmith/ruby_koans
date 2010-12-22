@@ -14,13 +14,33 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  if a == b && b == c
+
+  if !valid_triangle?(a,b,c)
+    raise TriangleError.new("Invalid triangle!")
+  end
+
+  if equilateral?(a,b,c)
     :equilateral
   elsif (a == b) || (b == c) || (a == c)
     :isosceles
   else
     :scalene
   end
+
+end
+
+def valid_triangle?(a,b,c)
+  if (a <= 0 || b <= 0 || c <= 0)
+    false
+  elsif equilateral?(a,b,c)
+    true
+  else
+    (((a + b) > c) && ((b + c) > a) && ((a + c) > b)) ? true : false
+  end
+end
+
+def equilateral?(a,b,c)
+  (a == b) && (b ==c) ? true : false
 end
 
 # Error class used in part 2.  No need to change this code.
